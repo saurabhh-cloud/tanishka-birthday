@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>html{background:#170d22}body{margin:0}</style>
+<title>Tanishka's 24 November</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one dusk-coloured night sky. Left-aligned hero with a giant outlined "24" behind the name,
+   the countdown as the single loud moment, quiet sections underneath. Single deliberate look (night). */
+:root {
+  --ink: #170d22;
+  --ink-2: #241536;
+  --paper: #f8ecf1;
+  --mute: #b9a6c6;
+  --topaz: #ffb74a;
+  --rose: #ff7fa6;
+  --lilac: #b8a4ff;
+  --line: rgba(248, 236, 241, 0.16);
+  --glass: rgba(36, 21, 54, 0.62);
+  --topaz-soft: rgba(255, 183, 74, 0.14);
+
+  --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background-color: var(--ink);
+  background-image:
+    radial-gradient(60rem 36rem at 85% -8%, rgba(255, 127, 166, 0.20), transparent 62%),
+    radial-gradient(52rem 34rem at -10% 18%, rgba(184, 164, 255, 0.16), transparent 60%),
+    radial-gradient(46rem 30rem at 60% 105%, rgba(255, 183, 74, 0.10), transparent 60%);
+  background-attachment: fixed;
+  color: var(--paper);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-inline: 1.25rem;
+  padding-block: 0;
+  overflow-x: hidden;
+}
+
+#sky, #confetti {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+#sky { z-index: 0; }
+#confetti { z-index: 50; }
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 68rem;
+  margin-inline: auto;
+}
+
+a, button { font: inherit; }
+:focus-visible { outline: 2px solid var(--topaz); outline-offset: 3px; border-radius: 4px; }
+
+/* top bar */
+.bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-block: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.bar b { color: var(--topaz); font-weight: 500; }
+
+/* hero */
+.hero {
+  position: relative;
+  padding-block: 2.5rem 3.5rem;
+  overflow: clip;
+}
+.big24 {
+  position: absolute;
+  right: -1rem;
+  top: -1rem;
+  font-family: var(--display);
+  font-size: clamp(14rem, 46vw, 34rem);
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 183, 74, 0.34);
+  user-select: none;
+  pointer-events: none;
+  letter-spacing: -0.03em;
+}
+.eyebrow {
+  position: relative;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--topaz);
+  margin: 0 0 1rem;
+}
+h1 {
+  position: relative;
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(4rem, 17vw, 12.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+h1 .sub {
+  display: block;
+  font-style: normal;
+  font-size: clamp(1.5rem, 4.2vw, 3rem);
+  line-height: 1.15;
+  letter-spacing: 0;
+  color: var(--mute);
+  margin-top: 1.25rem;
+  max-width: 24ch;
+}
+h1 .sub em { color: var(--paper); }
+
+/* countdown */
+.clock {
+  position: relative;
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.75rem;
+}
+.cell {
+  grid-column: span 2;
+  background: var(--glass);
+  border: 1px solid var(--line);
+  border-radius: 1.1rem;
+  padding: 1.1rem 1rem 0.9rem;
+  backdrop-filter: blur(6px);
+  min-width: 0;
+}
+.cell:nth-child(n+4) { grid-column: span 3; }
+.cell .n {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(3.2rem, 11vw, 6.5rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+.cell .l {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.cell.sec { border-color: rgba(255, 183, 74, 0.55); background: var(--topaz-soft); }
+.cell.sec .n { color: var(--topaz); }
+.cell.sec .l { color: var(--topaz); }
+
+@media (min-width: 720px) {
+  .clock { grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+  .cell, .cell:nth-child(n+4) { grid-column: span 1; padding: 1.5rem 1.25rem 1.2rem; }
+}
+
+/* waiting meter */
+.meter { margin-top: 1.75rem; position: relative; }
+.meter-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.track {
+  position: relative;
+  height: 6px;
+  margin-top: 0.7rem;
+  border-radius: 99px;
+  background: var(--line);
+}
+.fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--lilac), var(--rose), var(--topaz));
+}
+.fill::after {
+  content: "";
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: var(--topaz);
+  box-shadow: 0 0 0 4px rgba(255, 183, 74, 0.25), 0 0 18px 2px rgba(255, 183, 74, 0.6);
+}
+
+/* sections */
+section { position: relative; padding-block: 3.5rem; border-top: 1px solid var(--line); }
+h2 {
+  margin: 0 0 1.5rem;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+h2 em { color: var(--rose); }
+.kicker {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--topaz);
+  margin: 0 0 0.75rem;
+}
+
+/* note */
+.note-grid { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+.note p {
+  margin: 0 0 1.1rem;
+  max-width: 60ch;
+  font-size: 1.1rem;
+  color: var(--paper);
+}
+.sign { font-family: var(--display); font-style: italic; font-size: 2rem; color: var(--topaz); margin: 1.5rem 0 0; }
+.sign small { display: block; font-family: var(--mono); font-style: normal; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); margin-top: 0.25rem; }
+
+.surprise {
+  align-self: start;
+  background: linear-gradient(160deg, rgba(255,127,166,0.16), rgba(184,164,255,0.12));
+  border: 1px solid var(--line);
+  border-radius: 1.4rem;
+  padding: 1.75rem;
+}
+.surprise h3 { margin: 0 0 0.5rem; font-family: var(--display); font-weight: 400; font-size: 1.9rem; line-height: 1.1; }
+.surprise p { margin: 0 0 1.25rem; color: var(--mute); }
+.btn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  background: var(--topaz);
+  color: #2a1700;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0.85rem 1.5rem;
+  border-radius: 99px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 30px rgba(255, 183, 74, 0.28);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(255, 183, 74, 0.4); }
+.btn:active { transform: translateY(0); }
+#reveal {
+  margin-top: 1.25rem;
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.5rem;
+  line-height: 1.25;
+  color: var(--paper);
+}
+
+@media (min-width: 860px) {
+  .note-grid { grid-template-columns: 1.4fr 1fr; gap: 3.5rem; }
+}
+
+/* songs */
+.songs { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.songs[hidden] { display: none; }
+.songs .kicker { margin-bottom: 0.6rem; }
+.track {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  margin-top: 0.6rem;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  color: var(--paper);
+  background: rgba(248, 236, 241, 0.06);
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.track:hover { border-color: rgba(255, 183, 74, 0.6); }
+.track[aria-pressed="true"] { border-color: var(--topaz); background: var(--topaz-soft); }
+.track .ico {
+  flex: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--topaz);
+  color: #2a1700;
+  font-size: 0.8rem;
+}
+.track .t { min-width: 0; display: block; font-family: var(--display); font-size: 1.25rem; line-height: 1.15; }
+.track .t small { display: block; font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); margin-top: 0.15rem; }
+
+/* wishes */
+.wishes { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; grid-template-columns: 1fr; }
+.wishes li {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--display);
+  font-size: clamp(1.35rem, 3.4vw, 1.9rem);
+  line-height: 1.25;
+  text-wrap: pretty;
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+.wishes li::before {
+  content: "";
+  flex: none;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--topaz);
+  transform: translateY(-0.1em);
+  box-shadow: 0 0 12px rgba(255, 183, 74, 0.7);
+}
+.wishes li:nth-child(even)::before { background: var(--rose); box-shadow: 0 0 12px rgba(255, 127, 166, 0.7); }
+@media (min-width: 860px) {
+  .wishes { grid-template-columns: 1fr 1fr; column-gap: 3.5rem; }
+}
+
+/* sky of the day */
+.sky-grid { display: grid; gap: 2rem; grid-template-columns: 1fr; align-items: center; }
+.facts { display: grid; gap: 1rem; margin: 0; }
+.fact {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+.fact dt { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); padding-top: 0.35rem; }
+.fact dd { margin: 0; font-family: var(--display); font-size: 1.5rem; line-height: 1.25; }
+.fact dd span { display: block; font-family: var(--body); font-size: 0.95rem; color: var(--mute); margin-top: 0.15rem; }
+.teapot { width: 100%; height: auto; max-width: 30rem; justify-self: center; overflow: visible; }
+.teapot .ln { stroke: rgba(184, 164, 255, 0.55); stroke-width: 1.2; fill: none; stroke-linecap: round; }
+.teapot .st { fill: var(--paper); }
+.teapot .st.hot { fill: var(--topaz); }
+.teapot .halo { fill: rgba(255, 183, 74, 0.18); }
+.teapot text { fill: var(--mute); font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; }
+.cap { margin: 0.5rem 0 0; font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); text-align: center; }
+@media (min-width: 860px) {
+  .sky-grid { grid-template-columns: 1fr 1fr; gap: 3.5rem; }
+}
+
+footer {
+  position: relative;
+  z-index: 1;
+  max-width: 68rem;
+  margin-inline: auto;
+  padding-block: 2.5rem 3rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rise { animation: rise 0.9s cubic-bezier(.2,.7,.2,1) both; }
+  .rise.d1 { animation-delay: 0.08s; }
+  .rise.d2 { animation-delay: 0.18s; }
+  .rise.d3 { animation-delay: 0.3s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+}
+</style>
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<div class="wrap">
+  <div class="bar">
+    <span>Ram Lal Anand College</span>
+    <span><b>24 · 11</b> &nbsp;Sagittarius season</span>
+  </div>
+
+  <header class="hero">
+    <div class="big24" aria-hidden="true">24</div>
+    <p class="eyebrow rise" id="eyebrow">A birthday is on its way</p>
+    <h1 class="rise d1" id="headline">Tanishka<span class="sub" id="sub">Your day is on <em>24 November.</em> This page is counting.</span></h1>
+
+    <div class="clock rise d2" id="clock" role="timer" aria-label="Time left until 24 November">
+      <div class="cell"><span class="n" id="n-months">0</span><span class="l" id="l-months">Months</span></div>
+      <div class="cell"><span class="n" id="n-days">0</span><span class="l" id="l-days">Days</span></div>
+      <div class="cell"><span class="n" id="n-hours">00</span><span class="l" id="l-hours">Hours</span></div>
+      <div class="cell"><span class="n" id="n-minutes">00</span><span class="l" id="l-minutes">Minutes</span></div>
+      <div class="cell sec"><span class="n" id="n-seconds">00</span><span class="l" id="l-seconds">Seconds</span></div>
+    </div>
+
+    <div class="meter rise d3">
+      <div class="meter-top"><span id="meter-left">&nbsp;</span><span id="meter-right">&nbsp;</span></div>
+      <div class="track" aria-hidden="true"><div class="fill" id="fill"></div></div>
+    </div>
+  </header>
+
+  <section id="note">
+    <div class="note-grid">
+      <div class="note">
+        <p class="kicker">A note from your classmate</p>
+        <h2>Some people make a <em>lecture hall</em> feel smaller.</h2>
+        <p>Tanishka, between the shared notes, the borrowed pens and the panic before every internal, a birthday crept up on us. So I built you a page that counts down to it.</p>
+        <p>Every tick on that clock is a second closer to your day. I hope the year ahead is kind to you, that the people around you are good ones, and that you keep being exactly who you are.</p>
+        <p class="sign">Saurabh<small>Your classmate</small></p>
+      </div>
+      <aside class="surprise">
+        <h3>A little surprise, saved for you</h3>
+        <p>It is not the day yet, but you can have a bit of the party early.</p>
+        <button class="btn" id="pop" type="button">Open the surprise</button>
+        <div id="reveal" aria-live="polite"></div>
+        <div class="songs" id="songs" hidden>
+          <p class="kicker">Her songs</p>
+          <div id="songlist"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="wishes">
+    <p class="kicker">Wishes for your year</p>
+    <h2>Six small wishes, <em>college edition.</em></h2>
+    <ul class="wishes">
+      <li>Notes that make sense, and attendance that stays comfortably above 75%.</li>
+      <li>Question papers that open on exactly the chapter you revised.</li>
+      <li>Canteen chai that is hot, and friends who stay till the last bell.</li>
+      <li>Free periods that land in precisely the right places.</li>
+      <li>Deadlines that arrive late and holidays that arrive early.</li>
+      <li>A year that is softer on you than the last one.</li>
+    </ul>
+  </section>
+
+  <section id="sky-of-day">
+    <p class="kicker">The sky on 24 November</p>
+    <h2>You were born under the <em>Archer.</em></h2>
+    <div class="sky-grid">
+      <dl class="facts">
+        <div class="fact"><dt>Sign</dt><dd>Sagittarius ♐<span>The archer. Season runs 22 November to 21 December.</span></dd></div>
+        <div class="fact"><dt>Birthstone</dt><dd>Topaz, or citrine<span>Both come in the warm gold you see on this page.</span></dd></div>
+        <div class="fact"><dt>Flower</dt><dd>Chrysanthemum<span>The birth flower of November.</span></dd></div>
+      </dl>
+      <figure style="margin:0">
+        <svg class="teapot" viewBox="0 0 320 200" role="img" aria-label="Sketch of the Teapot, the brightest stars of Sagittarius">
+          <g class="ln">
+            <path d="M150 42 L205 52 L238 78 L242 118 L205 150 L120 150 L112 96 Z"/>
+            <path d="M205 52 L205 150"/>
+            <path d="M112 96 L68 124 L120 150"/>
+          </g>
+          <circle class="halo" cx="238" cy="78" r="16"/>
+          <g>
+            <circle class="st" cx="150" cy="42" r="3"/>
+            <circle class="st" cx="205" cy="52" r="2.4"/>
+            <circle class="st hot" cx="238" cy="78" r="4.2"/>
+            <circle class="st" cx="242" cy="118" r="2.4"/>
+            <circle class="st" cx="205" cy="150" r="3.2"/>
+            <circle class="st" cx="120" cy="150" r="3.6"/>
+            <circle class="st" cx="112" cy="96" r="3"/>
+            <circle class="st" cx="68" cy="124" r="2.8"/>
+          </g>
+          <text x="248" y="70">Nunki</text>
+          <text x="212" y="168">Ascella</text>
+          <text x="60" y="168">Kaus Australis</text>
+          <text x="30" y="116">Alnasl</text>
+        </svg>
+        <figcaption class="cap">The Teapot, schematic. Brightest part of Sagittarius.</figcaption>
+      </figure>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <span>Made by Saurabh, for Tanishka</span>
+  <span>24 · 11 · and every day after</span>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- date logic ---------- */
+  var START = new Date(2026, 9, 8); // the day this page was made
+
+  function birthdayMode(now) {
+    var y = now.getFullYear();
+    return now >= new Date(y, 10, 24) && now < new Date(y, 10, 25);
+  }
+  function targetFor(now) {
+    var y = now.getFullYear();
+    var t = new Date(y, 10, 24, 0, 0, 0);
+    if (now >= new Date(y, 10, 25)) t = new Date(y + 1, 10, 24, 0, 0, 0);
+    return t;
+  }
+  function addMonths(d, n) {
+    var r = new Date(d.getFullYear(), d.getMonth() + n, 1, d.getHours(), d.getMinutes(), d.getSeconds());
+    var dim = new Date(r.getFullYear(), r.getMonth() + 1, 0).getDate();
+    r.setDate(Math.min(d.getDate(), dim));
+    return r;
+  }
+  function breakdown(now, t) {
+    var months = (t.getFullYear() - now.getFullYear()) * 12 + (t.getMonth() - now.getMonth());
+    var a = addMonths(now, months);
+    while (a > t) { months--; a = addMonths(now, months); }
+    var rest = t - a;
+    return {
+      months: months,
+      days: Math.floor(rest / 864e5),
+      hours: Math.floor((rest % 864e5) / 36e5),
+      minutes: Math.floor((rest % 36e5) / 6e4),
+      seconds: Math.floor((rest % 6e4) / 1e3)
+    };
+  }
+  function pad(n) { return n < 10 ? "0" + n : "" + n; }
+  function plural(n, one, many) { return n === 1 ? one : many; }
+  function fmt(n) { return n.toLocaleString("en-IN"); }
+
+  var el = {};
+  ["months","days","hours","minutes","seconds"].forEach(function (k) {
+    el[k] = document.getElementById("n-" + k);
+    el["l" + k] = document.getElementById("l-" + k);
+  });
+  var fill = document.getElementById("fill");
+  var mLeft = document.getElementById("meter-left");
+  var mRight = document.getElementById("meter-right");
+  var headline = document.getElementById("headline");
+  var sub = document.getElementById("sub");
+  var eyebrow = document.getElementById("eyebrow");
+  var wasBirthday = false;
+
+  function tick() {
+    var now = new Date();
+    var bday = birthdayMode(now);
+    var t = targetFor(now);
+    var b = bday ? { months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 } : breakdown(now, t);
+
+    el.months.textContent = b.months;
+    el.days.textContent = b.days;
+    el.hours.textContent = pad(b.hours);
+    el.minutes.textContent = pad(b.minutes);
+    el.seconds.textContent = pad(b.seconds);
+    el.lmonths.textContent = plural(b.months, "Month", "Months");
+    el.ldays.textContent = plural(b.days, "Day", "Days");
+    el.lhours.textContent = plural(b.hours, "Hour", "Hours");
+    el.lminutes.textContent = plural(b.minutes, "Minute", "Minutes");
+    el.lseconds.textContent = plural(b.seconds, "Second", "Seconds");
+
+    if (bday) {
+      eyebrow.textContent = "24 November. It is today.";
+      headline.firstChild.nodeValue = "Happy birthday, Tanishka";
+      sub.innerHTML = "The clock has run out. <em>The day is all yours.</em>";
+      fill.style.width = "100%";
+      mLeft.textContent = "The wait is over";
+      mRight.textContent = "Make it a good one";
+      if (!wasBirthday) { wasBirthday = true; setTimeout(function () { burst(3); }, 600); }
+    } else {
+      var total = t - START;
+      var frac = t.getFullYear() === 2026 ? Math.min(1, Math.max(0, (now - START) / total)) : 0;
+      fill.style.width = (frac * 100).toFixed(2) + "%";
+      var left = t - now;
+      var d = Math.floor(left / 864e5);
+      var h = Math.floor(left / 36e5);
+      mLeft.textContent = d + " " + plural(d, "day", "days") + " to go";
+      mRight.textContent = fmt(h) + " hours in all";
+    }
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  /* ---------- star sky ---------- */
+  var sky = document.getElementById("sky");
+  var sctx = sky.getContext("2d");
+  var stars = [], shoot = null, W = 0, H = 0, dpr = 1, px = 0, py = 0;
+  function sizeSky() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    sky.width = W * dpr; sky.height = H * dpr;
+    sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var count = Math.round(Math.min(220, (W * H) / 7000));
+    stars = [];
+    for (var i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * W, y: Math.random() * H,
+        r: Math.random() * 1.3 + 0.25,
+        p: Math.random() * Math.PI * 2,
+        s: Math.random() * 1.2 + 0.4,
+        z: Math.random() * 0.8 + 0.2,
+        c: Math.random() < 0.22 ? "255,183,74" : (Math.random() < 0.3 ? "255,127,166" : "248,236,241")
+      });
+    }
+  }
+  function drawSky(time) {
+    sctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < stars.length; i++) {
+      var s = stars[i];
+      var a = reduce ? 0.7 : 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(time / 1000 * s.s + s.p));
+      var x = s.x + px * s.z * 14, y = s.y + py * s.z * 14;
+      sctx.fillStyle = "rgba(" + s.c + "," + a.toFixed(3) + ")";
+      sctx.beginPath(); sctx.arc(x, y, s.r, 0, 6.2832); sctx.fill();
+    }
+    if (!reduce) {
+      if (!shoot && Math.random() < 0.0035) {
+        shoot = { x: Math.random() * W * 0.8, y: Math.random() * H * 0.4, vx: 7 + Math.random() * 4, vy: 3 + Math.random() * 2, life: 1 };
+      }
+      if (shoot) {
+        var g = sctx.createLinearGradient(shoot.x, shoot.y, shoot.x - shoot.vx * 9, shoot.y - shoot.vy * 9);
+        g.addColorStop(0, "rgba(255,183,74," + shoot.life.toFixed(2) + ")");
+        g.addColorStop(1, "rgba(255,183,74,0)");
+        sctx.strokeStyle = g; sctx.lineWidth = 1.6;
+        sctx.beginPath(); sctx.moveTo(shoot.x, shoot.y); sctx.lineTo(shoot.x - shoot.vx * 9, shoot.y - shoot.vy * 9); sctx.stroke();
+        shoot.x += shoot.vx; shoot.y += shoot.vy; shoot.life -= 0.016;
+        if (shoot.life <= 0 || shoot.x > W + 40 || shoot.y > H + 40) shoot = null;
+      }
+    }
+  }
+  function loopSky(t) { drawSky(t); if (!reduce) requestAnimationFrame(loopSky); }
+  sizeSky();
+  window.addEventListener("resize", function () { sizeSky(); if (reduce) drawSky(0); });
+  if (!reduce) {
+    window.addEventListener("pointermove", function (e) {
+      px = (e.clientX / W - 0.5); py = (e.clientY / H - 0.5);
+    }, { passive: true });
+  }
+  requestAnimationFrame(loopSky);
+
+  /* ---------- confetti ---------- */
+  var cv = document.getElementById("confetti");
+  var cctx = cv.getContext("2d");
+  var bits = [], running = false;
+  var colors = ["#ffb74a", "#ff7fa6", "#b8a4ff", "#f8ecf1", "#ffd98f"];
+  function sizeC() {
+    cv.width = window.innerWidth * dpr; cv.height = window.innerHeight * dpr;
+    cctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  sizeC();
+  window.addEventListener("resize", sizeC);
+
+  function burst(times) {
+    if (reduce) return;
+    for (var k = 0; k < (times || 1); k++) {
+      (function (k) {
+        setTimeout(function () {
+          var ox = window.innerWidth * (0.2 + Math.random() * 0.6);
+          var oy = window.innerHeight * (0.3 + Math.random() * 0.2);
+          for (var i = 0; i < 90; i++) {
+            var ang = Math.random() * Math.PI * 2, sp = 3 + Math.random() * 9;
+            bits.push({
+              x: ox, y: oy, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 4,
+              w: 5 + Math.random() * 6, h: 3 + Math.random() * 5,
+              rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.4,
+              c: colors[(Math.random() * colors.length) | 0], life: 1
+            });
+          }
+          if (!running) { running = true; requestAnimationFrame(stepC); }
+        }, k * 350);
+      })(k);
+    }
+  }
+  function stepC() {
+    cctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    for (var i = bits.length - 1; i >= 0; i--) {
+      var b = bits[i];
+      b.vy += 0.22; b.vx *= 0.985; b.x += b.vx; b.y += b.vy; b.rot += b.vr; b.life -= 0.0055;
+      if (b.life <= 0 || b.y > window.innerHeight + 30) { bits.splice(i, 1); continue; }
+      cctx.save();
+      cctx.globalAlpha = Math.max(0, Math.min(1, b.life * 1.6));
+      cctx.translate(b.x, b.y); cctx.rotate(b.rot);
+      cctx.fillStyle = b.c; cctx.fillRect(-b.w / 2, -b.h / 2, b.w, b.h);
+      cctx.restore();
+    }
+    if (bits.length) requestAnimationFrame(stepC); else { running = false; cctx.clearRect(0, 0, window.innerWidth, window.innerHeight); }
+  }
+
+  /* ---------- surprise button ---------- */
+  var lines = [
+    "Happy early birthday, Tanishka.",
+    "The real one is on 24 November. This is the rehearsal.",
+    "Keep this page. Open it on the day."
+  ];
+  var li = 0;
+  var reveal = document.getElementById("reveal");
+  document.getElementById("pop").addEventListener("click", function () {
+    var now = new Date();
+    var msg = birthdayMode(now) ? "Happy birthday, Tanishka. Today is yours." : lines[li % lines.length];
+    li++;
+    reveal.textContent = msg;
+    chime();
+    burst(2);
+  });
+
+  /* ---------- chime (plays only after a tap) ---------- */
+  var actx = null;
+  function chime() {
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      actx = actx || new AC();
+      if (actx.state === "suspended") actx.resume();
+      [659.25, 880, 1318.5].forEach(function (f, i) {
+        var o = actx.createOscillator(), g = actx.createGain();
+        var t = actx.currentTime + i * 0.14;
+        o.type = "sine"; o.frequency.value = f;
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.12, t + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.9);
+        o.connect(g); g.connect(actx.destination);
+        o.start(t); o.stop(t + 1);
+      });
+    } catch (e) {}
+  }
+
+  /* ---------- her songs: buttons appear only if the audio file exists next to this page ---------- */
+  var songs = [
+    { src: "who-says.mp3", name: "Who Says", by: "Selena Gomez" },
+    { src: "ye-raatein-ye-mausam.mp3", name: "Ye Raatein Ye Mausam", by: "" }
+  ];
+  var songBox = document.getElementById("songs");
+  var songList = document.getElementById("songlist");
+  var playing = null;
+
+  function setState(btn, on) {
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+    btn.querySelector(".ico").textContent = on ? "❚❚" : "▶";
+  }
+  songs.forEach(function (s) {
+    var a = new Audio();
+    a.preload = "metadata";
+    a.addEventListener("loadedmetadata", function () {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "track";
+      var ico = document.createElement("span"); ico.className = "ico"; ico.setAttribute("aria-hidden", "true");
+      var t = document.createElement("span"); t.className = "t"; t.textContent = s.name;
+      if (s.by) { var sm = document.createElement("small"); sm.textContent = s.by; t.appendChild(sm); }
+      b.appendChild(ico); b.appendChild(t);
+      setState(b, false);
+      b.addEventListener("click", function () {
+        if (playing && playing.a !== a) { playing.a.pause(); setState(playing.b, false); }
+        if (a.paused) {
+          var p = a.play();
+          if (p && p.catch) p.catch(function () {});
+          setState(b, true); playing = { a: a, b: b };
+        } else {
+          a.pause(); setState(b, false);
+        }
+      });
+      a.addEventListener("ended", function () { setState(b, false); });
+      songList.appendChild(b);
+      songBox.hidden = false;
+    }, { once: true });
+    a.src = s.src;
+  });
+})();
+</script>
+
+</html>
